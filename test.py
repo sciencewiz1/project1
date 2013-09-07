@@ -26,14 +26,14 @@ QUIET = False
 
 def print_result(result):
     """If result is True, print a green PASSED or red FAILED line otherwise."""
-"""    if result:
-        print GREEN + 'PASSED' + END
-    else:
-        print RED + 'FAILED' + END"""
     if result:
         print 'PASSED'
     else:
         print 'FAILED'
+"""    if result:
+        print GREEN + 'PASSED' + END
+    else:
+        print RED + 'FAILED' + END"""
 
 
 
