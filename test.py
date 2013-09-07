@@ -26,10 +26,15 @@ QUIET = False
 
 def print_result(result):
     """If result is True, print a green PASSED or red FAILED line otherwise."""
-    if result:
+"""    if result:
         print GREEN + 'PASSED' + END
     else:
-        print RED + 'FAILED' + END
+        print RED + 'FAILED' + END"""
+    if result:
+        print 'PASSED'
+    else:
+        print 'FAILED'
+
 
 
 def wait_for_test_process(proc, timeout):

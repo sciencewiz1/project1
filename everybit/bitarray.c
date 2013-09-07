@@ -1,5 +1,3 @@
-
-
 /**
  * Copyright (c) 2012 MIT License by 6.172 Staff
  *
