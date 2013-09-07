@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """Test runner for 6.172, fall 2010.
-
+ 
 TODO(rnk): Fill out the docstring comment with usage.
 """
 
