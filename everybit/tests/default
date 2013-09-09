@@ -21,10 +21,10 @@
 
 # Instructions for writing a test:
 #
-# t: initializes new test
-# n: initializes bit array
-# r: rotates bit array subset at offset, length by amount
-# e: expects raw bit array value
+# t $ARG: initializes new test and names it $ARG
+# n $ARG: initializes bit array n to $ARG
+# r $ARG1 $ARG2 $ARG3: rotate subarray n[$ARG1:$ARG1+$ARG2-1] by $ARG3 bits
+# e $ARG: the expected result is $ARG
 
 # 0: headerexample (Verify the examples given in bitarray.h)
 t 0
