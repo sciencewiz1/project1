@@ -1,0 +1,62 @@
+#!/usr/bin/python
+
+import os, random, string, smtplib, getopt
+import sys, subprocess
+
+SENDMAIL = '/usr/sbin/sendmail'
+
+def is_csail_user(username):
+    p = subprocess.Popen(['finger', username], stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    (stdout, stderr) = p.communicate()
+    return not stderr
+
+print "Beginning project setup..."
+projects = ['1']
+username = os.getenv( 'USER' )
+
+opts = "p:"
+
+options, partners = getopt.getopt(sys.argv[1:], opts)
+
+if len(partners) == 0:
+    print "You must specify at least one project partner."
+    print "Usage: project-setup -p  project# project-partner-csail-username"
+    sys.exit(1)
+
+
+if len(options)==0 or len(options[0]) == 0 or options[0][0] != '-p' or options[0][1] == '':
+    print "You must specify a project with the '-p' flag"
+    print "Usage: project-setup -p  project# project-partner-csail-username"
+    sys.exit(1)
+
+
+if not options[0][1] in projects:
+    print "You must specify a valid project!"
+    sys.exit(1)
+else:
+    project = options[0][1]
+
+group = username
+
+for partner in partners:
+    if not is_csail_user(partner):
+        print partner + " is not a csail username."
+	sys.exit(1)
+    group += " " + partner
+
+try:
+    p = os.popen("%s -t" % SENDMAIL, "w")
+    p.write( "To: 6172-staff@csail.mit.edu\n" )
+    p.write( "Subject: [6.172-PROJECT " + str(project) + " SETUP] " + username + "\n" )
+    p.write( "\n" )
+    p.write( group+"\n" )
+    p.close( )
+except:
+    print "Failed to send mail to the course staff.  Please contact us for assistance."
+    raise
+    sys.exit( 1 )
+
+print "Done!  Unless you saw any error messages, you should be all set. Please allow the TA's up to 24 hours to create your group repository."
+print "If you run the setup script multiple times, the most recent partner choice will be used for the creation of repositories."
+raise SystemExit( 0 )
