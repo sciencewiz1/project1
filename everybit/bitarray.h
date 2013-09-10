@@ -74,9 +74,9 @@ void bitarray_set(bitarray_t *const bitarray,
 // contains the byte 0b00101101.
 //
 // Example:
-// Let ba be a bit array containing the byte 0b10010110; 
+// Let ba be a bit array containing the byte 0b10010110;
 // then, bitarray_rotate(ba, 2, 5, 2) operates on the highlighted subarray 0b--01011-
-// (ie. the third through seventh (inclusive) bits).  
+// (ie. the third through seventh (inclusive) bits).
 // Rotating it two places yields 0b--11010- and the final bit vector is then
 // 0b10110100.
 void bitarray_rotate(bitarray_t *const bitarray,
