@@ -107,8 +107,8 @@ static size_t modulo(const ssize_t n, const size_t m);
 // not matter.
 static char bitmask(const size_t bit_index);
 
-//declare swap
-void swap(bitarray_t * const bitarray, int start_left, int start_right, int length);
+// Declare swap
+static void swap(bitarray_t * const bitarray, int start_left, int start_right, int length);
 
 // ******************************* Functions ********************************
 
@@ -188,53 +188,53 @@ void bitarray_rotate(bitarray_t *const bitarray,
 
   // Convert a rotate left or right to a left rotate only, and eliminate
   // multiple full rotations.
-		   
+
   // The amount of left rotation
   int d = modulo(-bit_right_amount, bit_length);
-	
+
   // If we are rotating by 0 slots then just stop
   if (d == 0) {
     return;
   }
-	
+
   // Initialize rotation variables
   // i indicates the number of bits we still need to swap from the left side
   int i = d;
   // j indicates the number of bits we still need to swap from the right side
   int j = bit_length - d;
-  
+
   while (i != j) {
     if (i < j) {
-      // Left part is bigger than the right part, swap left to its final position 
+      // Left part is bigger than the right part, swap left to its final position
       // in the right side
       // e.g: A[0..7] left-rotate by 3; swap A[0..2] with A[5..7]
       swap(bitarray, bit_offset + d - i, bit_offset + d + j - i, i);
       j -= i;
     } else {
-      // right part is bigger than the left part, swap right to its final position 
+      // right part is bigger than the left part, swap right to its final position
       // in the left side
       // e.g: A[0..7] left-rotate by 3; swap A[0..2] with A[5..7]
       swap(bitarray, bit_offset + d - i, bit_offset + d, j);
       i -= j;
     }
-  }		
-  
+  }
+
   // Left part and right part are of the same size, we just swap them directly
   // e.g: A[0..7] left-rotate by 4; swap A[0..3] with A[4..7]
   swap(bitarray, bit_offset + d - i, bit_offset + d, i);
-  
+
   /*bitarray_rotate_left(bitarray, bit_offset, bit_length,
            modulo(-bit_right_amount, bit_length));*/
 }
 
 
-// Swap the bit elements of bitarray[start_left...start_left + length + 1] with 
+// Swap the bit elements of bitarray[start_left...start_left + length + 1] with
 // the bit elements of bitarray[start_right...start_right + length - 1]
 void swap(bitarray_t * const bitarray, int start_left, int start_right, int length) {
-  for (int i = 0; i < length; i++){
-    bool current_left = bitarray_get(bitarray,start_left + i);
-    bitarray_set(bitarray,start_left + i, bitarray_get(bitarray,start_right + i));
-    bitarray_set(bitarray,start_right + i,current_left);
+  for (int i = 0; i < length; i++) {
+    bool current_left = bitarray_get(bitarray, start_left + i);
+    bitarray_set(bitarray,start_left + i, bitarray_get(bitarray, start_right + i));
+    bitarray_set(bitarray, start_right + i, current_left);
   }
 } 
 
