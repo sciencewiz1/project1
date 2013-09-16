@@ -186,9 +186,40 @@ void bitarray_rotate(bitarray_t *const bitarray,
 
   // Convert a rotate left or right to a left rotate only, and eliminate
   // multiple full rotations.
-  bitarray_rotate_left(bitarray, bit_offset, bit_length,
-           modulo(-bit_right_amount, bit_length));
+  /*bitarray_rotate_left(bitarray, bit_offset, bit_length,
+           modulo(-bit_right_amount, bit_length));*/
+		   
+	//which value will be in zero slot (at bit_offset)
+	int d = modulo(-bit_right_amount, bit_length);
+	
+	//if we are rotating 0 slots then just stop
+	if(d == 0){
+		return;
+	}
+	
+	//initialize rotation variables
+	int i = d;
+	int j = bit_length - d ;
+	
+	while(i!=j){
+	
+		if(i<j){
+			swap(bitarray, bit_offset+d-i,bit_offset+d+j-i,i);
+			j-=i;
+		}else{
+			swap(bitarray,bit_offset+d-i,bit_offset+d,j);
+			i-=j;
+		}
+	}		
+	swap(bitarray,bit_offset+d-i,bit_offset+d,i);
 }
+void swap(bitarray_t * const bitarray, int start_left, int start_right, int length){
+	for (int i = 0; i < length; i++){
+		bool current_left = bitarray_get(bitarray,start_left + i);
+		bitarray_set(bitarray,start_left + i, bitarray_get(bitarray,start_right + i));
+		bitarray_set(bitarray,start_right + i,current_left);
+	}
+} 
 
 static void bitarray_rotate_left(bitarray_t *const bitarray,
                                  const size_t bit_offset,
