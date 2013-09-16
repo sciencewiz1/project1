@@ -29,13 +29,13 @@ e 11001011101
 t 5
 n 01101011101
 r 7 4 2
-e 10011010111
+e 01101010111
 
 #Test 6: Shift in the right end odd
 t 6
 n 01101011101
-r 0 4 3
-e 11001011011
+r 7 4 3
+e 01101011011
 
 #Test 7: Shift by 4 starting at 0
 t 7
