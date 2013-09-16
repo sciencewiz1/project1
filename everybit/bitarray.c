@@ -107,6 +107,8 @@ static size_t modulo(const ssize_t n, const size_t m);
 // not matter.
 static char bitmask(const size_t bit_index);
 
+//declare swap
+void swap(bitarray_t * const bitarray, int start_left, int start_right, int length)
 
 // ******************************* Functions ********************************
 
