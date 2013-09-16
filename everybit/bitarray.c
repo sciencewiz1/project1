@@ -192,7 +192,7 @@ void bitarray_rotate(bitarray_t *const bitarray,
            modulo(-bit_right_amount, bit_length));*/
 		   
 	//which value will be in zero slot (at bit_offset)
-	int d = modulo(-bit_right_amount, bit_length);
+	/*int d = modulo(-bit_right_amount, bit_length);
 	
 	//if we are rotating 0 slots then just stop
 	if(d == 0){
@@ -213,7 +213,9 @@ void bitarray_rotate(bitarray_t *const bitarray,
 			i-=j;
 		}
 	}		
-	swap(bitarray,bit_offset+d-i,bit_offset+d,i);
+	swap(bitarray,bit_offset+d-i,bit_offset+d,i);*/
+	bitarray_rotate_left(bitarray, bit_offset, bit_length,
+           modulo(-bit_right_amount, bit_length))
 }
 void swap(bitarray_t * const bitarray, int start_left, int start_right, int length){
 	for (int i = 0; i < length; i++){
