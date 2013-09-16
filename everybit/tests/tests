@@ -1,0 +1,44 @@
+#6.172 Project 1 Test Suite
+#Written By: Patricia Suriana and David Goehring
+
+#Test 1: A Shift of 0
+t 1
+n 01101011101
+r 4 3 0
+e 01101011101
+
+#Test 2: Length 1 Shift of 1
+t 2
+n 01101011101
+r 4 1 1
+e 01101011101
+
+#Test 3: Shift in the left end even
+t 3
+n 01101011101
+r 0 4 2
+e 10011011101
+
+#Test 4: Shift in the left end odd
+t 4
+n 01101011101
+r 0 4 3
+e 11001011101
+
+#Test 5: Shift in the right end even
+t 5
+n 01101011101
+r 7 4 2
+e 10011010111
+
+#Test 6: Shift in the right end odd
+t 6
+n 01101011101
+r 0 4 3
+e 11001011011
+
+#Test 7: Shift by 4 starting at 0
+t 7
+n 01101011
+r 0 8 4
+e 10110110
