@@ -31,7 +31,7 @@
 
 #include <sys/types.h>
 
-//#include "./bitarray.h"
+#include "./bitarray.h"
 
 
 // ********************************* Types **********************************
