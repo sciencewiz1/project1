@@ -7,73 +7,73 @@ n 01101011101
 r 4 3 0
 e 01101011101
 
-#Test 2: Length 1 Shift right of 1
+#Test 2: Shift subarray to the right by 1
 t 2
 n 01101011101
 r 4 1 1
 e 01101011101
 
-#Test 3: Shift right in the left end even
+#Test 3: Shift to the right starting from the left end by even number
 t 3
 n 01101011101
 r 0 4 2
 e 10011011101
 
-#Test 4: Shift right in the left end odd
+#Test 4: Shift to the right starting from the left end by odd number
 t 4
 n 01101011101
 r 0 4 3
 e 11001011101
 
-#Test 5: Shift right in the right end even
+#Test 5: Shift to the right starting from the right end by even number
 t 5
 n 01101011101
 r 7 4 2
 e 01101010111
 
-#Test 6: Shift right in the right end odd
+#Test 6: Shift to the right starting from the right end by odd number
 t 6
 n 01101011101
 r 7 4 3
 e 01101011011
 
-#Test 7: Shift right by 4 starting at 0
+#Test 7: Shift to the right by 4 starting at 0 offset
 t 7
 n 01101011
 r 0 8 4
 e 10110110
 
-#Test 8: Length 1 Shift left of 1
+#Test 8: Shift subarray to the left by 1 
 t 8
 n 01101011101
 r 4 1 -1
 e 01101011101
 
-#Test 9: Shift left in the left end even
+#Test 9: Shift to the left starting from the left end by even number
 t 9
 n 01001011101
 r 0 4 -2
 e 00011011101
 
-#Test 10: Shift left in the left end odd
+#Test 10: Shift to the left starting from the left end by odd number
 t 10
 n 01101011101
 r 0 4 -3
 e 00111011101
 
-#Test 11: Shift left in the right end even
+#Test 11: Shift to the left starting from the right end by even number
 t 11
 n 01101010101
 r 6 5 -2
 e 01101010110
 
-#Test 12: Shift left in the right end odd
+#Test 12: Shift to the left starting from the right end by odd number
 t 12
 n 01101011101
 r 7 4 -3
 e 01101011110
 
-#Test 13: Shift left by 4 starting at 0
+#Test 13: Shift to the left by 4 starting at 0 offset
 t 13
 n 01101011
 r 0 8 -4
