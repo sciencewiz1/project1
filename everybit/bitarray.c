@@ -222,9 +222,6 @@ void bitarray_a_rotate(bitarray_t *const bitarray,
   // Left part and right part are of the same size, we just swap them directly
   // e.g: A[0..7] left-rotate by 4; swap A[0..3] with A[4..7]
   swap(bitarray, bit_offset + d - i, bit_offset + d, i);
-
-  /*bitarray_rotate_left(bitarray, bit_offset, bit_length,
-           modulo(-bit_right_amount, bit_length));*/
 }
 
 
