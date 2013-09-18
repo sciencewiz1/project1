@@ -50,33 +50,6 @@ struct bitarray {
 
 // ******************** Prototypes for static functions *********************
 
-// Rotates a subarray left by an arbitrary number of bits.
-//
-// bit_offset is the index of the start of the subarray
-// bit_length is the length of the subarray, in bits
-// bit_left_amount is the number of places to rotate the
-//                    subarray left
-//
-// The subarray spans the half-open interval
-// [bit_offset, bit_offset + bit_length)
-// That is, the start is inclusive, but the end is exclusive.
-static void bitarray_rotate_left(bitarray_t *const bitarray,
-                                 const size_t bit_offset,
-                                 const size_t bit_length,
-                                 const size_t bit_left_amount);
-
-// Rotates a subarray left by one bit.
-//
-// bit_offset is the index of the start of the subarray
-// bit_length is the length of the subarray, in bits
-//
-// The subarray spans the half-open interval
-// [bit_offset, bit_offset + bit_length)
-// That is, the start is inclusive, but the end is exclusive.
-static void bitarray_rotate_left_one(bitarray_t *const bitarray,
-                                     const size_t bit_offset,
-                                     const size_t bit_length);
-
 // Portable modulo operation that supports negative dividends.
 //
 // Many programming languages define modulo in a manner incompatible with its
