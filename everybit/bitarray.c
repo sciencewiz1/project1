@@ -176,7 +176,7 @@ void bitarray_set(bitarray_t *const bitarray,
            (value ? bitmask(bit_index) : 0);
 }
 
-void bitarray_a_rotate(bitarray_t *const bitarray,
+void bitarray_rotate(bitarray_t *const bitarray,
                      const size_t bit_offset,
                      const size_t bit_length,
                      const ssize_t bit_right_amount) {

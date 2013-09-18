@@ -242,7 +242,7 @@ void testutil_rotate(const size_t bit_offset,
                      const size_t bit_length,
                      const ssize_t bit_right_shift_amount) {
   assert(test_bitarray != NULL);
-  bitarray_a_rotate(test_bitarray, bit_offset, bit_length, bit_right_shift_amount);
+  bitarray_rotate(test_bitarray, bit_offset, bit_length, bit_right_shift_amount);
   if (test_verbose) {
     bitarray_fprint(stdout, test_bitarray);
     fprintf(stdout, " rotate off=%zu, len=%zu, amnt=%zd\n",
