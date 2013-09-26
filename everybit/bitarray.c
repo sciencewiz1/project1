@@ -200,7 +200,7 @@ void bitarray_rotate(bitarray_t *const bitarray,
 
 // Swap the bit elements of bitarray[start_left...start_left + length + 1] with
 // the bit elements of bitarray[start_right...start_right + length - 1]
-inline void swap(bitarray_t * const bitarray, int start_left, int start_right, int length) {
+void swap(bitarray_t * const bitarray, int start_left, int start_right, int length) {
   for (int i = 0; i < length; i++) {
     bool current_left = bitarray_get(bitarray, start_left + i);
     bitarray_set(bitarray,start_left + i, bitarray_get(bitarray, start_right + i));
