@@ -218,6 +218,5 @@ static size_t modulo(const ssize_t n, const size_t m) {
 
 static char bitmask(const size_t bit_index) {
   return 1 << (bit_index);
-  printf("mask %d",bit_index);
 }
 
