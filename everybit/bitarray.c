@@ -128,7 +128,7 @@ bool bitarray_get(const bitarray_t *const bitarray, const size_t bit_index) {
   // get the byte; we then bitwise-and the byte with an appropriate mask
   // to produce either a zero byte (if the bit was 0) or a nonzero byte
   // (if it wasn't).  Finally, we convert that to a boolean.
-  return (bitarray->buf[bit_index] & bitmask(bit_index)) ?
+  return (bitarray->buf[bit_index / 8] & bitmask(bit_index)) ?
              true : false;
 }
 
@@ -217,6 +217,6 @@ static size_t modulo(const ssize_t n, const size_t m) {
 }
 
 static char bitmask(const size_t bit_index) {
-  return 1 << (bit_index);
+  return 1 << (bit_index % 8);
 }
 
