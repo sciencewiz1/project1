@@ -425,7 +425,7 @@ inline static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_i
   uint32_t partialRight = masks32right[32 - partialIdx] & right;
   //uint64_t partialLeft = (0xFFFFFFFF << partialIdx) & left;
   //uint64_t partialRight = (0xFFFFFFFF >> (32 - partialIdx)) & right;
-  return (partialLeft >> partialIdx) | (partialRight << (32 - partialIdx));
+  return (partialLeft >>> partialIdx) | (partialRight << (32 - partialIdx));
 }
 
 inline static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_index) {
