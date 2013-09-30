@@ -295,13 +295,13 @@ inline void swap(bitarray_t * const bitarray, int start_left, int start_right, i
     swap_64bit(bitarray, start_left + counter, start_right + counter);
     length -= 64;
     counter += 64;
-  }
+  }*/
  
   while (length >= 32) {
     swap_32bit(bitarray, start_left + counter, start_right + counter);
     length -= 32;
     counter += 32;
-  }*/
+  }
   
   while (length >= 16) {
     swap_16bit(bitarray, start_left + counter, start_right + counter);
@@ -422,7 +422,7 @@ inline static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_i
   uint32_t right = *(buf32bit + bit_index/32 + 1);
   uint32_t partialIdx = bit_index % 32;
   uint32_t partialLeft = masks32left[partialIdx] & left;
-  uint32_t partialRight = masks16right[32 - partialIdx] & right;
+  uint32_t partialRight = masks32right[32 - partialIdx] & right;
   //uint64_t partialLeft = (0xFFFFFFFF << partialIdx) & left;
   //uint64_t partialRight = (0xFFFFFFFF >> (32 - partialIdx)) & right;
   return (partialLeft >> partialIdx) | (partialRight << (32 - partialIdx));
