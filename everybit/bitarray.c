@@ -220,7 +220,6 @@ void reverse(bitarray_t *const bitarray, int start, int stop){
 		bitarray_set(bitarray,j,bitarray_get(bitarray,i));
 		bitarray_set(bitarray,i,temp);
 		j--;
-		i++;
 	}	
 }
 
