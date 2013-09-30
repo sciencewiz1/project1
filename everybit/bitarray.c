@@ -295,13 +295,13 @@ inline void swap(bitarray_t * const bitarray, int start_left, int start_right, i
     swap_64bit(bitarray, start_left + counter, start_right + counter);
     length -= 64;
     counter += 64;
-  }
+  }*/
  
   while (length >= 32) {
     swap_32bit(bitarray, start_left + counter, start_right + counter);
     length -= 32;
     counter += 32;
-  }*/
+  }
   
   while (length >= 16) {
     swap_16bit(bitarray, start_left + counter, start_right + counter);
