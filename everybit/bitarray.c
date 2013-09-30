@@ -281,7 +281,7 @@ void bitarray_rotate(bitarray_t *const bitarray,
 
 // Swap the bit elements of bitarray[start_left...start_left + length + 1] with
 // the bit elements of bitarray[start_right...start_right + length - 1]
-void swap(bitarray_t * const bitarray, int start_left, int start_right, int length) {
+inline void swap(bitarray_t * const bitarray, int start_left, int start_right, int length) {
   int counter = 0;
   while (length >= 128) {
     swap_64bit(bitarray, start_left + counter, start_right + counter);
@@ -314,13 +314,13 @@ void swap(bitarray_t * const bitarray, int start_left, int start_right, int leng
   }  
 } 
 
-static void swap_1bit(bitarray_t * const bitarray, int start_left, int start_right) {
+inline static void swap_1bit(bitarray_t * const bitarray, int start_left, int start_right) {
   bool current_left = bitarray_get(bitarray, start_left);
   bitarray_set(bitarray, start_left, bitarray_get(bitarray, start_right));
   bitarray_set(bitarray, start_right, current_left);
 }
 
-static void swap_8bit(bitarray_t * const bitarray, int start_left, int start_right) {   
+inline static void swap_8bit(bitarray_t * const bitarray, int start_left, int start_right) {   
   uint8_t temp_left;
   uint8_t temp_right;
   int leftAligned = IsBlockAligned(start_left, 8);
@@ -336,7 +336,7 @@ static void swap_8bit(bitarray_t * const bitarray, int start_left, int start_rig
   bitarray_set_8bit(bitarray, start_right, temp_left);
 }
 
-static void swap_16bit(bitarray_t * const bitarray, int start_left, int start_right) {
+inline static void swap_16bit(bitarray_t * const bitarray, int start_left, int start_right) {
   uint16_t temp_left;
   uint16_t temp_right;
   int leftAligned = IsBlockAligned(start_left, 16);
@@ -352,7 +352,7 @@ static void swap_16bit(bitarray_t * const bitarray, int start_left, int start_ri
   bitarray_set_16bit(bitarray, start_right, temp_left);
 }
 
-static void swap_32bit(bitarray_t * const bitarray, int start_left, int start_right) {
+inline static void swap_32bit(bitarray_t * const bitarray, int start_left, int start_right) {
   uint32_t temp_left;
   uint32_t temp_right;
   int leftAligned = IsBlockAligned(start_left, 32);
@@ -368,7 +368,7 @@ static void swap_32bit(bitarray_t * const bitarray, int start_left, int start_ri
   bitarray_set_32bit(bitarray, start_right, temp_left);
 }
 
-static void swap_64bit(bitarray_t * const bitarray, int start_left, int start_right) {
+inline static void swap_64bit(bitarray_t * const bitarray, int start_left, int start_right) {
   uint64_t temp_left;
   uint64_t temp_right;
   int leftAligned = IsBlockAligned(start_left, 64);
@@ -384,7 +384,7 @@ static void swap_64bit(bitarray_t * const bitarray, int start_left, int start_ri
   bitarray_set_64bit(bitarray, start_right, temp_left);
 }
  
-static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_index) {
+inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_index) {
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t left = *(buf8bit + bit_index/8);
   uint8_t right = *(buf8bit + bit_index/8 + 1);
@@ -394,7 +394,7 @@ static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_index) {
   return (partialLeft >> partialIdx) | (partialRight << (8 - partialIdx));  
 }
 
-static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_index) {
+inline static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_index) {
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t left = *(buf16bit + bit_index/16);
   uint16_t right = *(buf16bit + bit_index/16 + 1);
@@ -404,7 +404,7 @@ static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_index) {
   return (partialLeft >> partialIdx) | (partialRight << (16 - partialIdx));
 }
 
-static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_index) {
+inline static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_index) {
   uint64_t * buf32bit = (uint64_t *) (bitarray->buf);
   uint64_t left = *(buf32bit + bit_index/32);
   uint64_t right = *(buf32bit + bit_index/32 + 1);
@@ -414,7 +414,7 @@ static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_index) {
   return (partialLeft >> partialIdx) | (partialRight << (32 - partialIdx));
 }
 
-static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_index) {
+inline static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_index) {
   uint64_t * buf64bit = (uint64_t *) (bitarray->buf + bit_index/8);
   uint64_t left = *(buf64bit + bit_index/64);
   uint64_t right = *(buf64bit + bit_index/64 + 1);
@@ -425,7 +425,7 @@ static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_index) {
 }
 
 
-static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_t val) {
+inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_t val) {
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t partialIdx = bit_index % 8;
   uint8_t partialLeft = (0xFF >> partialIdx) & val;  
@@ -436,7 +436,7 @@ static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_
   *(buf8bit + bit_index/8 + 1) = right;  
 }
 
-static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint16_t val) {
+inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint16_t val) {
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t partialIdx = bit_index % 16;
   uint16_t partialLeft = (0xFFFF >> partialIdx) & val;  
@@ -447,7 +447,7 @@ static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint1
   *(buf16bit + bit_index/16 + 1) = right;  
 }
 
-static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint32_t val) {
+inline static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint32_t val) {
   uint32_t * buf32bit = (uint32_t *) (bitarray->buf);
   uint32_t partialIdx = bit_index % 32;
   uint32_t partialLeft = (0xFFFFFFFFFFFF >> partialIdx) & val;  
@@ -458,7 +458,7 @@ static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint3
   *(buf32bit + bit_index/32 + 1) = right;  
 }
 
-static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index, uint64_t val) {
+inline static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index, uint64_t val) {
   uint64_t * buf64bit = (uint64_t *) (bitarray->buf);
   uint64_t partialIdx = bit_index % 64;
   uint64_t partialLeft = (0xFFFFFFFFFFFFFFFF >> partialIdx) & val;  
@@ -471,22 +471,22 @@ static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index, uint6
 
 
 // Assume that it's aligned
-static uint8_t bitarray_get_8bit_aligned(bitarray_t * const bitarray, int bit_index) {
+inline static uint8_t bitarray_get_8bit_aligned(bitarray_t * const bitarray, int bit_index) {
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf + bit_index/8);
   return *buf8bit;
 }
 
-static uint16_t bitarray_get_16bit_aligned(bitarray_t * const bitarray, int bit_index) {
+inline static uint16_t bitarray_get_16bit_aligned(bitarray_t * const bitarray, int bit_index) {
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf + bit_index/8);
   return *buf16bit;  
 }
 
-static uint32_t bitarray_get_32bit_aligned(bitarray_t * const bitarray, int bit_index) {
+inline static uint32_t bitarray_get_32bit_aligned(bitarray_t * const bitarray, int bit_index) {
   uint32_t * buf32bit = (uint32_t *) (bitarray->buf + bit_index/8);
   return *buf32bit;
 }
 
-static uint64_t bitarray_get_64bit_aligned(bitarray_t * const bitarray, int bit_index) {
+inline static uint64_t bitarray_get_64bit_aligned(bitarray_t * const bitarray, int bit_index) {
   uint64_t * buf64bit = (uint64_t *) (bitarray->buf + bit_index/8);
   return *buf64bit;
 }
