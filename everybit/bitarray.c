@@ -158,8 +158,8 @@ static void bitarray_set_32bit_aligned(bitarray_t * const bitarray, int bit_inde
 static void bitarray_set_64bit_aligned(bitarray_t * const bitarray, int bit_index, uint64_t val);
 
 // ******************************* Constants ********************************
-
-
+unint8_t masks8left[] = {0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,0x00};
+unint8_t masks8right[] = {0xFF,0x7F,0x3F,0x1F,0x0F,0x07,0x03,0x01,0x00};
 
 // ******************************* Functions ********************************
 
@@ -389,8 +389,10 @@ inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_ind
   uint8_t left = *(buf8bit + bit_index/8);
   uint8_t right = *(buf8bit + bit_index/8 + 1);
   uint8_t partialIdx = bit_index % 8;
-  uint8_t partialLeft = (0xFF << partialIdx) & left;
-  uint8_t partialRight = (0xFF >> (8 - partialIdx)) & right;
+  uint8_t partialLeft = masks8left[partialIdx] & left;
+  uint8_t partialRight = masks8right[8 - partialIdx] & right;
+  //uint8_t partialLeft = (0xFF << partialIdx) & left;
+  //uint8_t partialRight = (0xFF >> (8 - partialIdx)) & right;
   return (partialLeft >> partialIdx) | (partialRight << (8 - partialIdx));  
 }
 
