@@ -442,10 +442,10 @@ inline static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_i
 inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_t val) {
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t partialIdx = bit_index % 8;
-  uint8_t partialLeft = masks8right[partialIdx] & val;  
+  uint8_t partialLeft = (0xFF >> partialIdx) & val;  
   uint8_t partialRight = val >> (8 - partialIdx);
-  uint8_t left = ((masks8right[8 - partialIdx])) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
-  uint8_t right = ((masks8left[partialIdx]) & (*(buf8bit + bit_index/8 + 1))) | partialRight;
+  uint8_t left = ((0xFF >> (8 - partialIdx)) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
+  uint8_t right = ((0xFF << partialIdx) & (*(buf8bit + bit_index/8 + 1))) | partialRight;
   *(buf8bit + bit_index/8) = left;
   *(buf8bit + bit_index/8 + 1) = right;  
 }
@@ -453,10 +453,10 @@ inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index,
 inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint16_t val) {
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t partialIdx = bit_index % 16;
-  uint16_t partialLeft = (masks16right[partialIdx]) & val;  
+  uint16_t partialLeft = (0xFFFF >> partialIdx) & val;  
   uint16_t partialRight = val >> (16 - partialIdx);
-  uint16_t left = ((masks16right[16 - partialIdx])) & (*(buf16bit + bit_index/16 ))) | (partialLeft << partialIdx);
-  uint16_t right = ((masks16left[partialIdx]) & (*(buf16bit + bit_index/16 + 1))) | partialRight;
+  uint16_t left = ((0xFFFF >> (16 - partialIdx)) & (*(buf16bit + bit_index/16 ))) | (partialLeft << partialIdx);
+  uint16_t right = ((0xFFFF << partialIdx) & (*(buf16bit + bit_index/16 + 1))) | partialRight;
   *(buf16bit + bit_index/16) = left;
   *(buf16bit + bit_index/16 + 1) = right;  
 }
@@ -464,10 +464,10 @@ inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index
 inline static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint32_t val) {
   uint32_t * buf32bit = (uint32_t *) (bitarray->buf);
   uint32_t partialIdx = bit_index % 32;
-  uint32_t partialLeft = (masks32right[partialIdx]) & val;  
+  uint32_t partialLeft = (0xFFFFFFFFFFFF >> partialIdx) & val;  
   uint32_t partialRight = val >> (32 - partialIdx);
-  uint32_t left = ((masks32right[32 - partialIdx])) & (*(buf32bit + bit_index/32 ))) | (partialLeft << partialIdx);
-  uint32_t right = ((masks32left[partialIdx]) & (*(buf32bit + bit_index/32 + 1))) | partialRight;
+  uint32_t left = ((0xFFFFFFFFFFFF >> (32 - partialIdx)) & (*(buf32bit + bit_index/32 ))) | (partialLeft << partialIdx);
+  uint32_t right = ((0xFFFFFFFFFFFF << partialIdx) & (*(buf32bit + bit_index/32 + 1))) | partialRight;
   *(buf32bit + bit_index/32) = left;
   *(buf32bit + bit_index/32 + 1) = right;  
 }
