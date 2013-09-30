@@ -409,11 +409,11 @@ inline static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_i
   uint16_t left = *(buf16bit + bit_index/16);
   uint16_t right = *(buf16bit + bit_index/16 + 1);
   uint16_t partialIdx = bit_index % 16;
-  uint16_t partialLeft = masks16left[16 - partialIdx] & left;
-  uint16_t partialRight = masks16right[partialIdx] & right;
+  uint16_t partialLeft = masks16left[partialIdx] & left;
+  uint16_t partialRight = masks16right[16 - partialIdx] & right;
   //uint16_t partialLeft = (0xFFFF << partialIdx) & left;
   //uint16_t partialRight = (0xFFFF >> (16 - partialIdx)) & right;
-  return (partialLeft << partialIdx) | (partialRight >> (16 - partialIdx));
+  return (partialLeft >> partialIdx) | (partialRight << (16 - partialIdx));
 }
 
 inline static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_index) {
