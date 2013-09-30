@@ -396,7 +396,7 @@ inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_ind
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t left = *(buf8bit + bit_index/8);
   uint8_t right = *(buf8bit + bit_index/8 + 1);
-  uint8_t partialIdx = bit_index % 8;
+  uint8_t partialIdx = bit_index & 7;
   uint8_t partialLeft = masks8left[partialIdx] & left;
   uint8_t partialRight = masks8right[8 - partialIdx] & right;
   //uint8_t partialLeft = (0xFF << partialIdx) & left;
@@ -441,7 +441,7 @@ inline static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_i
 
 inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_t val) {
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
-  uint8_t partialIdx = bit_index % 8;
+  uint8_t partialIdx = bit_index & 7;
   uint8_t partialLeft = (0xFF >> partialIdx) & val;  
   uint8_t partialRight = val >> (8 - partialIdx);
   uint8_t left = ((0xFF >> (8 - partialIdx)) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
