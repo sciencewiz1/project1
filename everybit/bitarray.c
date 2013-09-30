@@ -158,6 +158,9 @@ static void bitarray_set_32bit_aligned(bitarray_t * const bitarray, int bit_inde
 static void bitarray_set_64bit_aligned(bitarray_t * const bitarray, int bit_index, uint64_t val);
 
 static uint64_t DIV(int x, int y);
+uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
+uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
+
 // ******************************* Constants ********************************
 uint8_t masks8left[] = {0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,0x00};
 uint8_t masks8right[] = {0xFF,0x7F,0x3F,0x1F,0x0F,0x07,0x03,0x01,0x00};
@@ -395,7 +398,6 @@ inline static void swap_64bit(bitarray_t * const bitarray, int start_left, int s
  
 inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_index) {
   long v = bit_index/8;
-  uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t left = *(buf8bit + v);
   uint8_t right = *(buf8bit + v + 1);
   uint8_t partialIdx = bit_index & 7;
@@ -408,7 +410,6 @@ inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_ind
 
 inline static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_index) {
   long v = bit_index/16;
-  uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t left = *(buf16bit + v);
   uint16_t right = *(buf16bit + v + 1);
   uint16_t partialIdx = bit_index & 15;
@@ -491,13 +492,13 @@ inline static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index
 
 // Assume that it's aligned
 inline static uint8_t bitarray_get_8bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint8_t * buf8bit = (uint8_t *) (bitarray->buf) + bit_index/8;
-  return *buf8bit;
+  uint8_t * buf8bit1 = buf8bit + bit_index/8;
+  return *buf8bit1;
 }
 
 inline static uint16_t bitarray_get_16bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint16_t * buf16bit = (uint16_t *) (bitarray->buf) + bit_index/16;
-  return *buf16bit;  
+  uint16_t * buf16bit1 = buf16bit + bit_index/16;
+  return *buf16bit1;  
 }
 
 inline static uint32_t bitarray_get_32bit_aligned(bitarray_t * const bitarray, int bit_index) {
