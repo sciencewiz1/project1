@@ -86,7 +86,7 @@ $(shell echo debug >.buildmode)
 endif
 else
 # We want release mode.
-CFLAGS += -O3 -DNDEBUG
+CFLAGS += -O3 -DNDEBUG -ftree-vectorizer-verbose=1
 ifneq ($(OLD_MODE),release)
 $(shell echo release >.buildmode)
 endif
