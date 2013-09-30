@@ -486,43 +486,43 @@ inline static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index
 
 // Assume that it's aligned
 inline static uint8_t bitarray_get_8bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint8_t * buf8bit = (uint8_t *) (bitarray->buf + bit_index/8);
+  uint8_t * buf8bit = (uint8_t *) (bitarray->buf) + bit_index/8;
   return *buf8bit;
 }
 
 inline static uint16_t bitarray_get_16bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint16_t * buf16bit = (uint16_t *) (bitarray->buf + bit_index/8);
+  uint16_t * buf16bit = (uint16_t *) (bitarray->buf) + bit_index/16;
   return *buf16bit;  
 }
 
 inline static uint32_t bitarray_get_32bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint32_t * buf32bit = (uint32_t *) (bitarray->buf + bit_index/8);
+  uint32_t * buf32bit = (uint32_t *) (bitarray->buf) + bit_index/32;
   return *buf32bit;
 }
 
 inline static uint64_t bitarray_get_64bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint64_t * buf64bit = (uint64_t *) (bitarray->buf + bit_index/8);
+  uint64_t * buf64bit = (uint64_t *) (bitarray->buf) + bit_index/64;
   return *buf64bit;
 }
 
 
 static void bitarray_set_8bit_aligned(bitarray_t * const bitarray, int bit_index, uint8_t val) {
-  uint8_t * buf8bit = (uint8_t *) (bitarray->buf + bit_index/8);
+  uint8_t * buf8bit = (uint8_t *) (bitarray->buf) + bit_index/8;
   *buf8bit = val;
 }
 
 static void bitarray_set_16bit_aligned(bitarray_t * const bitarray, int bit_index, uint16_t val) {
-  uint16_t * buf16bit = (uint16_t *) (bitarray->buf + bit_index/8);
+  uint16_t * buf16bit = (uint16_t *) (bitarray->buf) + bit_index/16;
   *buf16bit = val;
 }
 
 static void bitarray_set_32bit_aligned(bitarray_t * const bitarray, int bit_index, uint32_t val) {
-  uint32_t * buf32bit = (uint32_t *) (bitarray->buf + bit_index/8);
+  uint32_t * buf32bit = (uint32_t *) (bitarray->buf) + bit_index/32;
   *buf32bit = val;
 }
 
 static void bitarray_set_64bit_aligned(bitarray_t * const bitarray, int bit_index, uint64_t val) {
-  uint64_t * buf64bit = (uint64_t *) (bitarray->buf + bit_index/8);
+  uint64_t * buf64bit = (uint64_t *) (bitarray->buf) + bit_index/64;
   *buf64bit = val;
 }
 
