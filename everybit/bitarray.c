@@ -295,13 +295,13 @@ inline void swap(bitarray_t * const bitarray, int start_left, int start_right, i
     swap_64bit(bitarray, start_left + counter, start_right + counter);
     length -= 64;
     counter += 64;
-  }*/
+  }
  
   while (length >= 32) {
     swap_32bit(bitarray, start_left + counter, start_right + counter);
     length -= 32;
     counter += 32;
-  }
+  }*/
   
   while (length >= 16) {
     swap_16bit(bitarray, start_left + counter, start_right + counter);
@@ -408,7 +408,7 @@ inline static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_i
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t left = *(buf16bit + bit_index/16);
   uint16_t right = *(buf16bit + bit_index/16 + 1);
-  uint16_t partialIdx = bit_index % 16;
+  uint16_t partialIdx = bit_index & 15;
   uint16_t partialLeft = masks16left[partialIdx] & left;
   uint16_t partialRight = masks16right[16 - partialIdx] & right;
   //uint16_t partialLeft = (0xFFFF << partialIdx) & left;
@@ -452,7 +452,7 @@ inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index,
 
 inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint16_t val) {
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
-  uint16_t partialIdx = bit_index % 16;
+  uint16_t partialIdx = bit_index & 15;
   uint16_t partialLeft = (0xFFFF >> partialIdx) & val;  
   uint16_t partialRight = val >> (16 - partialIdx);
   uint16_t left = ((0xFFFF >> (16 - partialIdx)) & (*(buf16bit + bit_index/16 ))) | (partialLeft << partialIdx);
