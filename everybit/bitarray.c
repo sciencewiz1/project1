@@ -393,9 +393,10 @@ inline static void swap_64bit(bitarray_t * const bitarray, int start_left, int s
 }
  
 inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_index) {
+  int v = DIV(bit_index,8);
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
-  uint8_t left = *(buf8bit + bit_index/8);
-  uint8_t right = *(buf8bit + bit_index/8 + 1);
+  uint8_t left = *(buf8bit + v);
+  uint8_t right = *(buf8bit + v + 1);
   uint8_t partialIdx = bit_index & 7;
   uint8_t partialLeft = masks8left[partialIdx] & left;
   uint8_t partialRight = masks8right[8 - partialIdx] & right;
@@ -405,9 +406,10 @@ inline static uint8_t bitarray_get_8bit(bitarray_t * const bitarray, int bit_ind
 }
 
 inline static uint16_t bitarray_get_16bit(bitarray_t * const bitarray, int bit_index) {
+  int v = DIV(bit_index,16);
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
-  uint16_t left = *(buf16bit + bit_index/16);
-  uint16_t right = *(buf16bit + bit_index/16 + 1);
+  uint16_t left = *(buf16bit + v);
+  uint16_t right = *(buf16bit + v + 1);
   uint16_t partialIdx = bit_index & 15;
   uint16_t partialLeft = masks16left[partialIdx] & left;
   uint16_t partialRight = masks16right[16 - partialIdx] & right;
@@ -421,10 +423,10 @@ inline static uint32_t bitarray_get_32bit(bitarray_t * const bitarray, int bit_i
   uint32_t left = *(buf32bit + bit_index/32);
   uint32_t right = *(buf32bit + bit_index/32 + 1);
   uint32_t partialIdx = bit_index % 32;
-  //uint32_t partialLeft = masks32left[partialIdx] & left;
-  //uint32_t partialRight = masks32right[32 - partialIdx] & right;
-  uint32_t partialLeft = (0xFFFFFFFF << partialIdx) & left;
-  uint32_t partialRight = (0xFFFFFFFF >> (32 - partialIdx)) & right;
+  uint32_t partialLeft = masks32left[partialIdx] & left;
+  uint32_t partialRight = masks32right[32 - partialIdx] & right;
+  //uint32_t partialLeft = (0xFFFFFFFF << partialIdx) & left;
+  //uint32_t partialRight = (0xFFFFFFFF >> (32 - partialIdx)) & right;
   return (partialLeft >> partialIdx) | (partialRight << (32 - partialIdx));
 }
 
@@ -440,25 +442,27 @@ inline static uint64_t bitarray_get_64bit(bitarray_t * const bitarray, int bit_i
 
 
 inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index, uint8_t val) {
+  int v = DIV(bit_index,8);
   uint8_t * buf8bit = (uint8_t *) (bitarray->buf);
   uint8_t partialIdx = bit_index & 7;
   uint8_t partialLeft = (0xFF >> partialIdx) & val;  
   uint8_t partialRight = val >> (8 - partialIdx);
-  uint8_t left = ((0xFF >> (8 - partialIdx)) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
-  uint8_t right = ((0xFF << partialIdx) & (*(buf8bit + bit_index/8 + 1))) | partialRight;
-  *(buf8bit + bit_index/8) = left;
-  *(buf8bit + bit_index/8 + 1) = right;  
+  uint8_t left = ((0xFF >> (8 - partialIdx)) & (*(buf8bit + v ))) | (partialLeft << partialIdx);
+  uint8_t right = ((0xFF << partialIdx) & (*(buf8bit + v + 1))) | partialRight;
+  *(buf8bit + v) = left;
+  *(buf8bit + v + 1) = right;  
 }
 
 inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index, uint16_t val) {
+  int v = DIV(bit_index,16);
   uint16_t * buf16bit = (uint16_t *) (bitarray->buf);
   uint16_t partialIdx = bit_index & 15;
   uint16_t partialLeft = (0xFFFF >> partialIdx) & val;  
   uint16_t partialRight = val >> (16 - partialIdx);
-  uint16_t left = ((0xFFFF >> (16 - partialIdx)) & (*(buf16bit + bit_index/16 ))) | (partialLeft << partialIdx);
-  uint16_t right = ((0xFFFF << partialIdx) & (*(buf16bit + bit_index/16 + 1))) | partialRight;
-  *(buf16bit + bit_index/16) = left;
-  *(buf16bit + bit_index/16 + 1) = right;  
+  uint16_t left = ((0xFFFF >> (16 - partialIdx)) & (*(buf16bit + v))) | (partialLeft << partialIdx);
+  uint16_t right = ((0xFFFF << partialIdx) & (*(buf16bit + v + 1))) | partialRight;
+  *(buf16bit + v) = left;
+  *(buf16bit + v + 1) = right;  
 }
 
 inline static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint32_t val) {
@@ -486,12 +490,12 @@ inline static void bitarray_set_64bit(bitarray_t * const bitarray, int bit_index
 
 // Assume that it's aligned
 inline static uint8_t bitarray_get_8bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint8_t * buf8bit = (uint8_t *) (bitarray->buf) + bit_index/8;
+  uint8_t * buf8bit = (uint8_t *) (bitarray->buf) + DIV(bit_index,8);
   return *buf8bit;
 }
 
 inline static uint16_t bitarray_get_16bit_aligned(bitarray_t * const bitarray, int bit_index) {
-  uint16_t * buf16bit = (uint16_t *) (bitarray->buf) + bit_index/16;
+  uint16_t * buf16bit = (uint16_t *) (bitarray->buf) + DIV(bit_index,16);
   return *buf16bit;  
 }
 
@@ -537,4 +541,12 @@ static size_t modulo(const ssize_t n, const size_t m) {
 static char bitmask(const size_t bit_index) {
   return 1 << (bit_index % 8);
 }
-
+static int DIV(int x, int y)
+{
+	int n = 0;
+	while (x > y) {
+		x -= y;
+		n++;
+	}
+	return n; // truncate fraction
+}
