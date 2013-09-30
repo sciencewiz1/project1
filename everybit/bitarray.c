@@ -464,10 +464,10 @@ inline static void bitarray_set_16bit(bitarray_t * const bitarray, int bit_index
 inline static void bitarray_set_32bit(bitarray_t * const bitarray, int bit_index, uint32_t val) {
   uint32_t * buf32bit = (uint32_t *) (bitarray->buf);
   uint32_t partialIdx = bit_index % 32;
-  uint32_t partialLeft = (0xFFFFFFFFFFFF >> partialIdx) & val;  
+  uint32_t partialLeft = (0xFFFFFFFF >> partialIdx) & val;  
   uint32_t partialRight = val >> (32 - partialIdx);
-  uint32_t left = ((0xFFFFFFFFFFFF >> (32 - partialIdx)) & (*(buf32bit + bit_index/32 ))) | (partialLeft << partialIdx);
-  uint32_t right = ((0xFFFFFFFFFFFF << partialIdx) & (*(buf32bit + bit_index/32 + 1))) | partialRight;
+  uint32_t left = ((0xFFFFFFFF >> (32 - partialIdx)) & (*(buf32bit + bit_index/32 ))) | (partialLeft << partialIdx);
+  uint32_t right = ((0xFFFFFFFF << partialIdx) & (*(buf32bit + bit_index/32 + 1))) | partialRight;
   *(buf32bit + bit_index/32) = left;
   *(buf32bit + bit_index/32 + 1) = right;  
 }
