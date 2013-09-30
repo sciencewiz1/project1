@@ -157,7 +157,6 @@ static void bitarray_set_16bit_aligned(bitarray_t * const bitarray, int bit_inde
 static void bitarray_set_32bit_aligned(bitarray_t * const bitarray, int bit_index, uint32_t val);
 static void bitarray_set_64bit_aligned(bitarray_t * const bitarray, int bit_index, uint64_t val);
 
-static uint64_t DIV(int x, int y);
 uint8_t * buf8bit = 0;
 uint16_t * buf16bit = 0;
 
@@ -543,13 +542,4 @@ static size_t modulo(const ssize_t n, const size_t m) {
 
 static char bitmask(const size_t bit_index) {
   return 1 << (bit_index % 8);
-}
-static uint64_t DIV(int x, int y)
-{
-	uint64_t n = 0;
-	while (x > y) {
-		x -= y;
-		n++;
-	}
-	return n; // truncate fraction
 }
