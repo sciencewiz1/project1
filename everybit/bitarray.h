@@ -25,12 +25,11 @@
 
 #include <sys/types.h>
 
-
+ 
 // ********************************* Types **********************************
 
 // Abstract data type representing an array of bits.
 typedef struct bitarray bitarray_t;
-
 
 // ******************************* Prototypes *******************************
 
