@@ -157,6 +157,7 @@ static void bitarray_set_16bit_aligned(bitarray_t * const bitarray, int bit_inde
 static void bitarray_set_32bit_aligned(bitarray_t * const bitarray, int bit_index, uint32_t val);
 static void bitarray_set_64bit_aligned(bitarray_t * const bitarray, int bit_index, uint64_t val);
 
+static int DIV(int x, int y);
 // ******************************* Constants ********************************
 uint8_t masks8left[] = {0xFF,0xFE,0xFC,0xF8,0xF0,0xE0,0xC0,0x80,0x00};
 uint8_t masks8right[] = {0xFF,0x7F,0x3F,0x1F,0x0F,0x07,0x03,0x01,0x00};
