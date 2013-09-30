@@ -245,7 +245,7 @@ void bitarray_rotate(bitarray_t *const bitarray,
                      const ssize_t bit_right_amount) {
   assert(bit_offset + bit_length <= bitarray->bit_sz);
   buf8bit = (uint8_t *) bitarray->buf;
-  buf16bit = (* uint16_t) bitarray->buf;
+  buf16bit = (uint16_t *) bitarray->buf;
   if (bit_length == 0) {
     return;
   }
