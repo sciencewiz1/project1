@@ -215,7 +215,7 @@ void bitarray_rotate(bitarray_t *const bitarray,
 
 void reverse(bitarray_t *const bitarray, int start, int stop){
 	int j = stop;
-	for(int i = start; i<=j; i++){
+	for(int i = start; i>=j; i++){
 		int temp = bitarray_get(bitarray,j);
 		bitarray_set(bitarray,j,bitarray_get(bitarray,i));
 		bitarray_set(bitarray,i,temp);
