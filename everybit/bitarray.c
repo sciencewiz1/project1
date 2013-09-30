@@ -207,9 +207,9 @@ void bitarray_rotate(bitarray_t *const bitarray,
   }
   int ind_at_0 = d;
   partition = bit_offset + ind_at_0 - 1;
-  size_t end =bit_offset + bit_length-1;
+  size_t end =bit_offset + bit_length - 1;
   reverse(bitarray_rotate,bit_offset,partition);
-  reverse(bitarray_rotate,partition,end);
+  reverse(bitarray_rotate,partition+1,end);
   reverse(bitarray_rotate,bit_offset,end);
 }
 
