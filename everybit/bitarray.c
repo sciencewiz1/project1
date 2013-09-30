@@ -444,7 +444,7 @@ inline static void bitarray_set_8bit(bitarray_t * const bitarray, int bit_index,
   uint8_t partialIdx = bit_index % 8;
   uint8_t partialLeft = masks8right[partialIdx] & val;  
   uint8_t partialRight = val >> (8 - partialIdx);
-  uint8_t left = ((masks8right[8 - partialIdx]) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
+  uint8_t left = ((masks8right[8 - partialIdx])) & (*(buf8bit + bit_index/8 ))) | (partialLeft << partialIdx);
   uint8_t right = ((masks8left[partialIdx]) & (*(buf8bit + bit_index/8 + 1))) | partialRight;
   *(buf8bit + bit_index/8) = left;
   *(buf8bit + bit_index/8 + 1) = right;  
