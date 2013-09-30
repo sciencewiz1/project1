@@ -205,10 +205,10 @@ void bitarray_rotate(bitarray_t *const bitarray,
   if (d == 0) {
     return;
   }
-  int val_at_0 = (bit_length - bit_right_amount - 1) % (bit_length-1) + 1;
+  int partition = (bit_length - bit_right_amount - 1) % (bit_length-1);
   size_t end =bit_offset + bit_length-1;
-  reverse(bitarray_rotate,bit_offset,val_at_0);
-  reverse(bitarray_rotate,val_at_0,end);
+  reverse(bitarray_rotate,bit_offset,partition);
+  reverse(bitarray_rotate,partition,end);
   reverse(bitarray_rotate,bit_offset,end);
 }
 
