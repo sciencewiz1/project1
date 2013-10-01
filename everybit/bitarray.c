@@ -217,7 +217,7 @@ void reverse(bitarray_t *const bitarray, int start, int stop){
 	int j = stop;
 	int i = start;
 	while( i < j){
-		int temp = bitarray_get(bitarray,i);
+		bool temp = bitarray_get(bitarray,i);
 		bitarray_set(bitarray,i,bitarray_get(bitarray,j));
 		bitarray_set(bitarray,j,temp);
 		j--;
